@@ -6,6 +6,6 @@ void main() => runApp(MaterialApp(
   initialRoute: "/",
   routes: {
     "/" : (context) => Home(),
-    "/login" : (context) => Login();
+    "/login" : (context) => Login(),
   },
 ));
