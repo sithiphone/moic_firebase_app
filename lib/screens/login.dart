@@ -50,7 +50,7 @@ class _LoginState extends State<Login> {
         child: CircleAvatar(
           backgroundColor: Colors.blue,
           radius: 60.0,
-          child: Image.asset("assets/person.png"),
+          child: Image.asset("assets/indian.png"),
         ),
       ),
     );
