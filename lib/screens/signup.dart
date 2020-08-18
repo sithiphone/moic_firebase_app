@@ -161,7 +161,23 @@ class _SignupState extends State<Signup> {
   void signUp() async {
     if(_formKey.currentState.validate()){
       _formKey.currentState.save();
-
+      String name = _nameController.text.trim();
+      String email = _emailController.text.trim();
+      String password = _passwordController.text.trim();
+      String confirmPassword = _confirmPassController.text.trim();
+      if(password == confirmPassword && password.length >= 6){
+        try{
+          UserCredential user = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+              email: email,
+              password: password
+          );
+          print("Successful: ${user}");
+        }catch(e){
+          print("Registration Fail: $e");
+        }
+      }else{
+        print("Password not match or less than 6.");
+      }
     }
   }
 }

@@ -5,7 +5,7 @@ import 'package:moic_firebase_app/screens/login.dart';
 import 'package:moic_firebase_app/screens/signup.dart';
 
 void main() => runApp(MaterialApp(
-  initialRoute: "/dashboard",
+  initialRoute: "/login",
   routes: {
     "/" : (context) => Home(),
     "/login" : (context) => Login(),
