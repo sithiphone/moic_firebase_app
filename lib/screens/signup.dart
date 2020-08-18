@@ -1,4 +1,7 @@
+import 'dart:io';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:moic_firebase_app/models/member.dart';
 
 class Signup extends StatefulWidget {
   @override
@@ -6,6 +9,12 @@ class Signup extends StatefulWidget {
 }
 
 class _SignupState extends State<Signup> {
+  var member = Member();
+  Member logged = new Member();
+  File _image;
+  String name;
+  FirebaseAuth _auth = FirebaseAuth.instance;
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController _nameController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
@@ -69,6 +78,7 @@ class _SignupState extends State<Signup> {
     return Padding(
       padding: EdgeInsets.only(top: 30.0),
       child: TextFormField(
+        controller: _nameController,
         maxLength: 80,
         autofocus: false,
         decoration: InputDecoration(
@@ -84,6 +94,7 @@ class _SignupState extends State<Signup> {
     return Padding(
       padding: EdgeInsets.only(top: 30.0),
       child: TextFormField(
+        controller: _emailController,
         maxLength: 80,
         keyboardType: TextInputType.emailAddress,
         autofocus: false,
@@ -100,6 +111,7 @@ class _SignupState extends State<Signup> {
     return Padding(
       padding: EdgeInsets.only(top: 30.0),
       child: TextFormField(
+        controller: _passwordController,
         maxLines: 1,
         obscureText: true,
         autofocus: false,
@@ -116,6 +128,7 @@ class _SignupState extends State<Signup> {
     return Padding(
       padding: EdgeInsets.only(top: 30.0),
       child: TextFormField(
+        controller: _confirmPassController,
         maxLines: 1,
         obscureText: true,
         autofocus: false,
@@ -138,8 +151,17 @@ class _SignupState extends State<Signup> {
         ),
         color: Colors.blue,
         child: Text("Register", style: TextStyle(fontSize: 20.0, color: Colors.white),),
-        onPressed: (){},
+        onPressed: (){
+          signUp();
+        },
       ),
     );
+  }
+
+  void signUp() async {
+    if(_formKey.currentState.validate()){
+      _formKey.currentState.save();
+
+    }
   }
 }
