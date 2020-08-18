@@ -31,6 +31,10 @@ class _LoginState extends State<Login> {
               _textFieldEmail(),
               _textFieldPassword(),
               _buttonSignIn(),
+              _buildLine("Do you have an account"),
+              _register(),
+              _buildLine("Other"),
+              _forgotPassword(),
             ],
           ),
         ),
@@ -94,6 +98,52 @@ class _LoginState extends State<Login> {
         ),
         color: Colors.blue,
         child: Text("Login", style: TextStyle(fontSize: 20.0, color: Colors.white),),
+        onPressed: (){},
+      ),
+    );
+  }
+
+  Widget _buildLine(String s) {
+    return Container(
+      margin: EdgeInsets.only(top: 16.0),
+      child: Row(
+        children: [
+          Expanded(child: Divider(color: Colors.green[800],),),
+          Padding(
+            padding: EdgeInsets.all(6.0),
+            child: Text(s, style: TextStyle(color: Colors.black87),),
+          ),
+          Expanded(child: Divider(color: Colors.green[800],),),
+        ],
+      ),
+    );
+  }
+
+  Widget _register() {
+    return Padding(
+      padding: EdgeInsets.only(top: 16.0),
+      child: RaisedButton(
+        elevation: 5.0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.0),
+        ),
+        color: Colors.blue,
+        child: Text("Register", style: TextStyle(fontSize: 20.0, color: Colors.white),),
+        onPressed: (){},
+      ),
+    );
+  }
+
+  Widget _forgotPassword() {
+    return Padding(
+      padding: EdgeInsets.only(top: 16.0),
+      child: RaisedButton(
+        elevation: 5.0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.0),
+        ),
+        color: Colors.blue,
+        child: Text("Forgot password", style: TextStyle(fontSize: 20.0, color: Colors.white),),
         onPressed: (){},
       ),
     );
