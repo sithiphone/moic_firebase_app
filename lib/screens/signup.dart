@@ -1,6 +1,8 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker_modern/image_picker_modern.dart';
 import 'package:moic_firebase_app/models/member.dart';
 
 class Signup extends StatefulWidget {
@@ -12,7 +14,7 @@ class _SignupState extends State<Signup> {
   var member = User();
   User logged = new User();
   File _image;
-  String name;
+  String name, filename;
   FirebaseAuth _auth = FirebaseAuth.instance;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -52,9 +54,7 @@ class _SignupState extends State<Signup> {
 
   Widget _buildSelectImage() {
     return InkWell(
-      onTap: (){
-
-      },
+      onTap: getImage,
       child: Column(
         children: [
           Container(
@@ -171,6 +171,15 @@ class _SignupState extends State<Signup> {
               email: email,
               password: password
           )).user;
+
+          await Firestore.instance.collection('users').add(
+            {
+              'userid' : user.uid,
+              'name' : name,
+              'email' : email
+            }
+          );
+
           print("Successful: $user");
         }catch(e){
           print("Registration Fail: $e");
@@ -179,5 +188,12 @@ class _SignupState extends State<Signup> {
         print("Password not match or less than 6.");
       }
     }
+  }
+  Future getImage() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      _image = image;
+    });
   }
 }
