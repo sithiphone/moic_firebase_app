@@ -9,8 +9,8 @@ class Signup extends StatefulWidget {
 }
 
 class _SignupState extends State<Signup> {
-  var member = Member();
-  Member logged = new Member();
+  var member = User();
+  User logged = new User();
   File _image;
   String name;
   FirebaseAuth _auth = FirebaseAuth.instance;
@@ -167,11 +167,11 @@ class _SignupState extends State<Signup> {
       String confirmPassword = _confirmPassController.text.trim();
       if(password == confirmPassword && password.length >= 6){
         try{
-          UserCredential user = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          FirebaseUser user = (await FirebaseAuth.instance.createUserWithEmailAndPassword(
               email: email,
               password: password
-          );
-          print("Successful: ${user}");
+          )).user;
+          print("Successful: $user");
         }catch(e){
           print("Registration Fail: $e");
         }

@@ -1,22 +1,22 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Member{
+class User{
   var id, docid, group, name, email, photo, mobile, address;
   bool isChecked;
   User(){
     this.isChecked = false;
   }
 
-  static Member fromDocument(DocumentSnapshot doc){
-    Member user = Member();
+  static User fromDocument(DocumentSnapshot doc){
+    User user = User();
     user.docid = doc.documentID;
-    user.id = doc.data()['userid'];
-    user.group = doc.data()['group'];
-    user.name = doc.data()['name'];
-    user.email = doc.data()['email'];
-    user.photo = doc.data()['photo'];
-    user.mobile = doc.data()['mobile'];
-    user.address = doc.data()['address'];
+    user.id = doc.data['userid'];
+    user.group = doc.data['group'];
+    user.name = doc.data['name'];
+    user.email = doc.data['email'];
+    user.photo = doc.data['photo'];
+    user.mobile = doc.data['mobile'];
+    user.address = doc.data['address'];
   }
 
   String toString(){
