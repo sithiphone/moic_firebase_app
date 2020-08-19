@@ -159,7 +159,9 @@ class _LoginState extends State<Login> {
         ),
         color: Colors.blue,
         child: Text("Forgot password", style: TextStyle(fontSize: 20.0, color: Colors.white),),
-        onPressed: (){},
+        onPressed: (){
+          Navigator.pushNamed(context, "/resetPW");
+        },
       ),
     );
   }
