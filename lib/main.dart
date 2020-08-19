@@ -4,6 +4,7 @@ import 'package:moic_firebase_app/screens/home.dart';
 import 'package:moic_firebase_app/screens/login.dart';
 import 'package:moic_firebase_app/screens/resetpw.dart';
 import 'package:moic_firebase_app/screens/signup.dart';
+import 'package:moic_firebase_app/screens/todo/addTask.dart';
 import 'package:moic_firebase_app/screens/todo/todoHome.dart';
 
 void main() => runApp(MaterialApp(
@@ -15,5 +16,6 @@ void main() => runApp(MaterialApp(
     "/dashboard" : (context) => Dashboard(),
     "/resetPW" : (context) => ResetPw(),
     TodoHome.id : (context) => TodoHome(),
+    AddTask.id : (context) => AddTask(),
   },
 ));
