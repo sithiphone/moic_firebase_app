@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:moic_firebase_app/models/User.dart';
+import 'package:moic_firebase_app/screens/AppDrawer.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -51,37 +52,7 @@ class _HomeState extends State<Home> {
           ],
         ),
       ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            UserAccountsDrawerHeader(
-              margin: EdgeInsets.all(0.0),
-              accountName: Text("Sithiphone"),
-              accountEmail: Text("sithiphone@fe-nuol.edu.la"),
-              currentAccountPicture: CircleAvatar(
-                backgroundImage: AssetImage("assets/person.png"),
-              ),
-            ),
-            ListTile(
-              leading: Icon(Icons.thumbs_up_down),
-              title: Text("Todo app"),
-              onTap: (){
-                Navigator.pushNamed(context, "/todo_home");
-              },
-            ),
-            ListTile(
-              title: Text("Menu 1"),
-              onTap: (){},
-            ),
-            ListTile(
-              title: Text("Menu 1"),
-              onTap: (){},
-            ),
-
-          ],
-        ),
-      ),
+      drawer: AppDrawer(),
     );
   }
 
