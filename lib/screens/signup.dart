@@ -1,9 +1,14 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker_modern/image_picker_modern.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:moic_firebase_app/models/member.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:math' as Math;
+import 'package:image/image.dart' as Img;
+import 'package:path/path.dart';
 
 class Signup extends StatefulWidget {
   @override
@@ -38,7 +43,15 @@ class _SignupState extends State<Signup> {
           child: ListView(
             children: [
               SizedBox(height: 30.0,),
-              _buildSelectImage(),
+              _image == null?_buildSelectImage(): InkWell(
+                onTap: getImage,
+                child: Center(
+                  child: CircleAvatar(
+                    backgroundImage: FileImage(_image),
+                    radius: 60.0,
+                  ),
+                ),
+              ),
               _buildTextFieldName(),
               _buildTextFieldEmail(),
               _textFieldPassword(),
@@ -166,6 +179,7 @@ class _SignupState extends State<Signup> {
       String password = _passwordController.text.trim();
       String confirmPassword = _confirmPassController.text.trim();
       if(password == confirmPassword && password.length >= 6){
+        String photoUrl = await resizeAndUploadImageToFirestorage(_image);
         try{
           FirebaseUser user = (await FirebaseAuth.instance.createUserWithEmailAndPassword(
               email: email,
@@ -176,7 +190,9 @@ class _SignupState extends State<Signup> {
             {
               'userid' : user.uid,
               'name' : name,
-              'email' : email
+              'email' : email,
+              'photo' : photoUrl,
+              'photo_name' : filename
             }
           );
 
@@ -191,9 +207,24 @@ class _SignupState extends State<Signup> {
   }
   Future getImage() async {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
-
     setState(() {
       _image = image;
+      filename = basename(_image.path);
     });
   }
+
+  resizeAndUploadImageToFirestorage(File file) async{
+    final StorageReference firebaseStorageRef = FirebaseStorage.instance.ref().child(filename);
+//    final tempDir = await getTemporaryDirectory();
+//    final path = tempDir.path;
+//    int rand = new Math.Random().nextInt(100000);
+//    Img.Image image = Img.decodeImage(file.readAsBytesSync());
+//    Img.Image smallerImage = Img.copyResize(image);
+//    var compressedImage = new File('$path/img_$rand.jpg')..writeAsBytesSync(Img.encodeJpg(smallerImage, quality: 85));
+    final StorageUploadTask task = firebaseStorageRef.putFile(file);
+    var url = await(await task.onComplete).ref.getDownloadURL();
+    String photoUrl = url.toString();
+    return photoUrl;
+  }
+
 }
