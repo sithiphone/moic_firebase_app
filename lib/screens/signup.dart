@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:moic_firebase_app/models/member.dart';
+import 'package:moic_firebase_app/models/User.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:math' as Math;
 import 'package:image/image.dart' as Img;
