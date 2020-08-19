@@ -64,8 +64,11 @@ class _HomeState extends State<Home> {
               ),
             ),
             ListTile(
-              title: Text("Menu 1"),
-              onTap: (){},
+              leading: Icon(Icons.thumbs_up_down),
+              title: Text("Todo app"),
+              onTap: (){
+                Navigator.pushNamed(context, "/todo_home");
+              },
             ),
             ListTile(
               title: Text("Menu 1"),
