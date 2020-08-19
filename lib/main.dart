@@ -14,6 +14,6 @@ void main() => runApp(MaterialApp(
     "/signup" : (context) => Signup(),
     "/dashboard" : (context) => Dashboard(),
     "/resetPW" : (context) => ResetPw(),
-    "/todo_home" : (context) => TodoHome(),
+    TodoHome.id : (context) => TodoHome(),
   },
 ));

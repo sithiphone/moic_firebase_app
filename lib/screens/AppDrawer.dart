@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moic_firebase_app/screens/todo/todoHome.dart';
 
 class AppDrawer extends StatelessWidget {
 
@@ -28,7 +29,7 @@ class AppDrawer extends StatelessWidget {
               backgroundImage: AssetImage("assets/person.png"),
             ),
           ),
-          _createDrawerItem(Icons.exit_to_app, "TODO App", () => Navigator.pushNamed(context, "/todo_home")),
+          _createDrawerItem(Icons.exit_to_app, "TODO App", () => Navigator.pushNamed(context, TodoHome.id)),
 
         ],
       ),
