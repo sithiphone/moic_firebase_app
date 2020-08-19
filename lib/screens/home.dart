@@ -51,6 +51,34 @@ class _HomeState extends State<Home> {
           ],
         ),
       ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            UserAccountsDrawerHeader(
+              margin: EdgeInsets.all(0.0),
+              accountName: Text("Sithiphone"),
+              accountEmail: Text("sithiphone@fe-nuol.edu.la"),
+              currentAccountPicture: CircleAvatar(
+                backgroundImage: AssetImage("assets/person.png"),
+              ),
+            ),
+            ListTile(
+              title: Text("Menu 1"),
+              onTap: (){},
+            ),
+            ListTile(
+              title: Text("Menu 1"),
+              onTap: (){},
+            ),
+            ListTile(
+              title: Text("Menu 1"),
+              onTap: (){},
+            ),
+
+          ],
+        ),
+      ),
     );
   }
 
