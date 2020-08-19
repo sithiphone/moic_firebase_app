@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:moic_firebase_app/models/User.dart';
+import 'package:moic_firebase_app/screens/home.dart';
 class Login extends StatefulWidget{
   @override
   _LoginState createState() => _LoginState();
@@ -11,6 +14,7 @@ class _LoginState extends State<Login> {
   final formKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  var loggedUser = new User();
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +64,7 @@ class _LoginState extends State<Login> {
     return Padding(
       padding: EdgeInsets.only(top: 30.0),
       child: TextFormField(
+        controller: emailController,
         maxLength: 80,
         keyboardType: TextInputType.emailAddress,
         autofocus: false,
@@ -76,6 +81,7 @@ class _LoginState extends State<Login> {
     return Padding(
       padding: EdgeInsets.only(top: 30.0),
       child: TextFormField(
+        controller: passwordController,
         maxLines: 1,
         obscureText: true,
         autofocus: false,
@@ -98,7 +104,9 @@ class _LoginState extends State<Login> {
         ),
         color: Colors.blue,
         child: Text("Login", style: TextStyle(fontSize: 20.0, color: Colors.white),),
-        onPressed: (){},
+        onPressed: (){
+          signIn();
+        },
       ),
     );
   }
@@ -149,5 +157,25 @@ class _LoginState extends State<Login> {
         onPressed: (){},
       ),
     );
+  }
+
+  void signIn() async {
+    final AuthResult result = await _auth.signInWithEmailAndPassword(
+    email: emailController.text.trim(),
+    password: passwordController.text.trim()).catchError((err){
+      print(err.message);
+      scaffoldKey.currentState.showSnackBar(
+      SnackBar(content: Text(err.message, style: TextStyle(color: Colors.white),),
+          backgroundColor: Colors.red,));});
+
+    if(result != null){
+      Firestore.instance.collection('users').where('userid', isEqualTo: result.user.uid).snapshots().listen((data) =>
+          data.documents.forEach((doc) => {
+            loggedUser.id = doc.documentID,
+            loggedUser.name = doc['name'],
+            loggedUser.email = doc['email'],
+            loggedUser.photo = doc['photo'],
+      }));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()));}
   }
 }
