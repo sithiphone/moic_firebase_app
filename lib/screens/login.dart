@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:moic_firebase_app/models/User.dart';
 import 'package:moic_firebase_app/screens/home.dart';
 class Login extends StatefulWidget{
@@ -15,6 +16,7 @@ class _LoginState extends State<Login> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   var loggedUser = new User();
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -25,21 +27,24 @@ class _LoginState extends State<Login> {
         centerTitle: true,
         elevation: 5.0,
       ),
-      body: Container(
-        padding: EdgeInsets.all(16.0),
-        child: Form(
-          child: ListView(
-            shrinkWrap: true,
-            children: [
-              _logo(),
-              _textFieldEmail(),
-              _textFieldPassword(),
-              _buttonSignIn(),
-              _buildLine("Do you have an account"),
-              _register(),
-              _buildLine("Other"),
-              _forgotPassword(),
-            ],
+      body: ModalProgressHUD(
+        inAsyncCall: isLoading,
+        child: Container(
+          padding: EdgeInsets.all(16.0),
+          child: Form(
+            child: ListView(
+              shrinkWrap: true,
+              children: [
+                _logo(),
+                _textFieldEmail(),
+                _textFieldPassword(),
+                _buttonSignIn(),
+                _buildLine("Do you have an account"),
+                _register(),
+                _buildLine("Other"),
+                _forgotPassword(),
+              ],
+            ),
           ),
         ),
       ),
@@ -160,9 +165,15 @@ class _LoginState extends State<Login> {
   }
 
   void signIn() async {
+    setState(() {
+      isLoading = true;
+    });
     final AuthResult result = await _auth.signInWithEmailAndPassword(
     email: emailController.text.trim(),
     password: passwordController.text.trim()).catchError((err){
+      setState(() {
+        isLoading = false;
+      });
       print(err.message);
       scaffoldKey.currentState.showSnackBar(
       SnackBar(content: Text(err.message, style: TextStyle(color: Colors.white),),
@@ -176,6 +187,9 @@ class _LoginState extends State<Login> {
             loggedUser.email = doc['email'],
             loggedUser.photo = doc['photo'],
       }));
+      setState(() {
+        isLoading = false;
+      });
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()));}
   }
 }
