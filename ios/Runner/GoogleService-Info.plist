@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>778206571569-sf492n1p041ncge61hcc27eka7ng5kqp.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.778206571569-sf492n1p041ncge61hcc27eka7ng5kqp</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCB90qVLd4GKkZgxvZiOfxZENhFN27vACI</string>
+	<key>GCM_SENDER_ID</key>
+	<string>778206571569</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>la.edu.nuol.fe.ceit.moicFirebaseApp</string>
+	<key>PROJECT_ID</key>
+	<string>moic-975f5</string>
+	<key>STORAGE_BUCKET</key>
+	<string>moic-975f5.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:778206571569:ios:07ac79796b513bec6f3910</string>
+	<key>DATABASE_URL</key>
+	<string>https://moic-975f5.firebaseio.com</string>
+</dict>
+</plist>

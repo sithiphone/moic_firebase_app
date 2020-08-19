@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "778206571569",
+    "firebase_url": "https://moic-975f5.firebaseio.com",
+    "project_id": "moic-975f5",
+    "storage_bucket": "moic-975f5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:778206571569:android:3202fe7fed68546e6f3910",
+        "android_client_info": {
+          "package_name": "la.edu.nuol.fe.ceit.moic_firebase_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "778206571569-90couajs2bhfv0ep5v7u6l4uoq0nfi8i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6j0Z2B8Mu9Nkb_YjI4XV8Mjoy6sRDGfs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "778206571569-90couajs2bhfv0ep5v7u6l4uoq0nfi8i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
