@@ -64,30 +64,37 @@ class _TodoHomeState extends State<TodoHome> {
             return ListView.builder(
               itemCount: tasks.length,
               itemBuilder: (context, index){
-                return ListTile(
-                  leading: deleteItems.contains(tasks[index].docid)? Icon(Icons.check_box) : Icon(Icons.check_box_outline_blank),
-                  title: Text(tasks[index].task_name),
-                  subtitle: Text(tasks[index].docid),
-                  onTap: (){
-                    setState(() {
-                      if(deleteItems.contains(tasks[index].docid)){
-                      deleteItems.remove(tasks[index].docid);
-                      }else{
-                        deleteItems.add(tasks[index].docid);
-                      }
-                      deleteItems.forEach((v) => print(v)); }); },
-                  trailing: GestureDetector(
-                    child: Icon(Icons.edit, color: Colors.blue,),
+                return Dismissible(
+                  key: Key(tasks[index].docid),
+                  background: Container(color: Colors.red,),
+                  onDismissed: (direction) async {
+                    deleteTask(tasks[index].docid, index);
+                  },
+                  child: ListTile(
+                    leading: deleteItems.contains(tasks[index].docid)? Icon(Icons.check_box) : Icon(Icons.check_box_outline_blank),
+                    title: Text(tasks[index].task_name),
+                    subtitle: Text(tasks[index].docid),
                     onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context){
-                        Task task = new Task();
-                        task = tasks[index];
-                        task.docid = tasks[index].docid;
-                        task.task_name = tasks[index].task_name;
-                        task.userid = tasks[index].userid;
-                        return EditTask(task: task);
-                      }));
-                    },
+                      setState(() {
+                        if(deleteItems.contains(tasks[index].docid)){
+                        deleteItems.remove(tasks[index].docid);
+                        }else{
+                          deleteItems.add(tasks[index].docid);
+                        }
+                        deleteItems.forEach((v) => print(v)); }); },
+                    trailing: GestureDetector(
+                      child: Icon(Icons.edit, color: Colors.blue,),
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context){
+                          Task task = new Task();
+                          task = tasks[index];
+                          task.docid = tasks[index].docid;
+                          task.task_name = tasks[index].task_name;
+                          task.userid = tasks[index].userid;
+                          return EditTask(task: task);
+                        }));
+                      },
+                    ),
                   ),
                 ); }, );
             }
@@ -172,5 +179,9 @@ class _TodoHomeState extends State<TodoHome> {
         );
       }
     );
+  }
+
+  void deleteTask(String doc_id, int index) async {
+    await Firestore.instance.collection('tasks').document(doc_id).delete().then((value) => deleteItems.remove(doc_id));
   }
 }
