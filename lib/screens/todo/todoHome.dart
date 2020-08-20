@@ -23,7 +23,7 @@ class _TodoHomeState extends State<TodoHome> {
   FirebaseUser user;
   Firestore firestore = Firestore.instance;
   List tasks = new List();
-  List deleteItems = new List();
+  var deleteItems = new List<String>();
 
   @override
     void initState() {
@@ -104,7 +104,11 @@ class _TodoHomeState extends State<TodoHome> {
       case 0 :
         Navigator.pushNamed(context, AddTask.id);
         break;
-      case 1 : print("TWO"); break;
+      case 1 :
+        deleteItems.forEach((doc) {
+          firestore.collection('tasks').document(doc).delete().then((msg) => deleteItems.remove(doc));
+        });
+        break;
     }
   }
 
