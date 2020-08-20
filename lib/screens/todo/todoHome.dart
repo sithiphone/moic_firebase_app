@@ -10,6 +10,8 @@ class TodoHome extends StatefulWidget {
   _TodoHomeState createState() => _TodoHomeState();
 }
 
+enum ConfirmDelete {CANCEL, OK}
+
 class _TodoHomeState extends State<TodoHome> {
   int _selectIndex = 0;
   static const TextStyle optionStyle = TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold);
@@ -105,9 +107,9 @@ class _TodoHomeState extends State<TodoHome> {
         Navigator.pushNamed(context, AddTask.id);
         break;
       case 1 :
-        deleteItems.forEach((doc) {
-          firestore.collection('tasks').document(doc).delete().then((msg) => deleteItems.remove(doc));
-        });
+        if(!deleteItems.isEmpty){
+          _asyncConfirmDeleteDialog(context);
+        }
         break;
     }
   }
@@ -119,5 +121,38 @@ class _TodoHomeState extends State<TodoHome> {
     for(var doc in qn.documents){
       print(doc.documentID);
     }
+  }
+
+  Future<ConfirmDelete> _asyncConfirmDeleteDialog(BuildContext context) async {
+    return showDialog<ConfirmDelete>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context){
+        return AlertDialog(
+          title: Text('ແຈ້ງເຕືອນການລຶບ'),
+          content: Text('ເຈົ້າແນ່ໃຈແລ້ວບໍວ່າຈະລຶບວຽກນີ້ແທ້?'),
+          actions: <Widget>[
+            FlatButton(
+              child: Text("Cancel"),
+              onPressed: (){
+                Navigator.of(context).pop(ConfirmDelete.CANCEL);
+                setState(() {
+
+                });
+              },
+            ),
+            FlatButton(
+              child: Text("OK"),
+              onPressed: (){
+                deleteItems.forEach((doc) {
+                  firestore.collection('tasks').document(doc).delete().then((msg) => deleteItems.remove(doc));
+                });
+                Navigator.of(context).pop(ConfirmDelete.OK);
+              },
+            ),
+          ],
+        );
+      }
+    );
   }
 }
