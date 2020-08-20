@@ -129,6 +129,9 @@ class _TodoHomeState extends State<TodoHome> {
       barrierDismissible: false,
       builder: (BuildContext context){
         return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0)
+          ),
           title: Text('ແຈ້ງເຕືອນການລຶບ'),
           content: Text('ເຈົ້າແນ່ໃຈແລ້ວບໍວ່າຈະລຶບວຽກນີ້ແທ້?'),
           actions: <Widget>[
