@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moic_firebase_app/screens/category/categoryHome.dart';
 import 'package:moic_firebase_app/screens/dashboard.dart';
 import 'package:moic_firebase_app/screens/home.dart';
 import 'package:moic_firebase_app/screens/login.dart';
@@ -19,5 +20,6 @@ void main() => runApp(MaterialApp(
     TodoHome.id : (context) => TodoHome(),
     AddTask.id : (context) => AddTask(),
     EditTask.id : (context) => EditTask(),
+    CategoryHome.id : (context) => CategoryHome(),
   },
 ));

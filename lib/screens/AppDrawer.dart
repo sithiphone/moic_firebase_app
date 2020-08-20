@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moic_firebase_app/screens/category/categoryHome.dart';
 import 'package:moic_firebase_app/screens/todo/todoHome.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -30,6 +31,7 @@ class AppDrawer extends StatelessWidget {
             ),
           ),
           _createDrawerItem(Icons.exit_to_app, "TODO App", () => Navigator.pushNamed(context, TodoHome.id)),
+          _createDrawerItem(Icons.group_work, "Categories", () => Navigator.pushNamed(context, CategoryHome.id)),
 
         ],
       ),
