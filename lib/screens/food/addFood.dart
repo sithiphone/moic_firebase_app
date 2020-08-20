@@ -54,20 +54,22 @@ class _AddFoodState extends State<AddFood> {
         ],
       ),
       body: SafeArea(
-        child: Container(
-          padding: EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              _image != null? Container(
-                height: 300.0,
-                child: Image.file(_image),
-              ) :_imageFood(),
-              _categoryDropdown(),
-              _textFieldName(),
-              _textFieldPice(),
-              _textFieldOldPice(),
-            ],
+        child: SingleChildScrollView(
+          child: Container(
+            padding: EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                _image != null? Container(
+                  height: 300.0,
+                  child: Image.file(_image),
+                ) :_imageFood(),
+                _categoryDropdown(),
+                _textFieldName(),
+                _textFieldPice(),
+                _textFieldOldPice(),
+              ],
+            ),
           ),
         ),
       ),
