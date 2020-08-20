@@ -11,7 +11,6 @@ class CategoryHome extends StatefulWidget {
 class _CategoryHomeState extends State<CategoryHome> {
   Firestore firestore = Firestore.instance;
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
