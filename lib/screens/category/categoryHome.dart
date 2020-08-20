@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:moic_firebase_app/screens/category/addCategory.dart';
 
 class CategoryHome extends StatefulWidget {
   static String id = "category_home_id";
@@ -22,7 +23,7 @@ class _CategoryHomeState extends State<CategoryHome> {
       body: Container(
         padding: EdgeInsets.all(16.0),
         child: StreamBuilder(
-          stream: firestore.collection('categories').snapshots(),
+          stream: firestore.collection('categories').orderBy('created_at', descending: false).snapshots(),
           builder: (context, snapshot){
             List<DocumentSnapshot> categories = snapshot.data.documents;
             if(!snapshot.hasData){
@@ -58,7 +59,12 @@ class _CategoryHomeState extends State<CategoryHome> {
             }
           },
         ),
-
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add_circle, color: Colors.white, size: 50.0,),
+        onPressed: (){
+          Navigator.pushNamed(context, AddCategory.id);
+        },
       ),
     );
   }
