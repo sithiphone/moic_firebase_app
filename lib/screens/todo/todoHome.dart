@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:moic_firebase_app/models/Task.dart';
 import 'package:moic_firebase_app/screens/todo/addTask.dart';
+import 'package:moic_firebase_app/screens/todo/editTask.dart';
 
 class TodoHome extends StatefulWidget {
   static String id = "todo_home_screen";
@@ -74,7 +75,21 @@ class _TodoHomeState extends State<TodoHome> {
                       }else{
                         deleteItems.add(tasks[index].docid);
                       }
-                      deleteItems.forEach((v) => print(v)); }); },  ); }, );
+                      deleteItems.forEach((v) => print(v)); }); },
+                  trailing: GestureDetector(
+                    child: Icon(Icons.edit, color: Colors.blue,),
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context){
+                        Task task = new Task();
+                        task = tasks[index];
+                        task.docid = tasks[index].docid;
+                        task.task_name = tasks[index].task_name;
+                        task.userid = tasks[index].userid;
+                        return EditTask(task: task);
+                      }));
+                    },
+                  ),
+                ); }, );
             }
          }
 
