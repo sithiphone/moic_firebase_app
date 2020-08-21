@@ -49,7 +49,7 @@ class _CategoryHomeState extends State<CategoryHome> {
                             child: Text(no.toString()),
                             radius: 16.0,
                           ),
-                          title: Text(categories[index].data['name']),
+                          title: categories[index].data['name'] != null?Text(categories[index].data['name']):Text(""),
                         ),
                       ),
                     );

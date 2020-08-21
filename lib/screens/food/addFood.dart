@@ -5,6 +5,7 @@ import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:path/path.dart';
 
 class AddFood extends StatefulWidget {
@@ -21,6 +22,7 @@ class _AddFoodState extends State<AddFood> {
   Map<String, String> category = new Map<String, String>();
   List<Map> categories = List<Map>();
   String _selectedCategory;
+  bool _isLoading = false;
 
   @override
   void initState() {
@@ -39,6 +41,9 @@ class _AddFoodState extends State<AddFood> {
           IconButton(
             icon: Icon(Icons.add_circle, color: Colors.white, size: 40.0,),
             onPressed: () async {
+              setState(() {
+                _isLoading = true;
+              });
               String photoUrl = await resizeAndUploadImageToFirestorage(_image);
               firestore.collection('foods').add({
                 'category' : _selectedCategory,
@@ -48,27 +53,38 @@ class _AddFoodState extends State<AddFood> {
                 'photo' : photoUrl,
                 'filename' : filename,
                 'crated_at' : Timestamp.now()
-              }).then((value) => Navigator.pop(context));
+              }).then((value){
+                setState(() {
+                  _isLoading = false;
+                });
+                Navigator.pop(context);
+              });
+              setState(() {
+                _isLoading = false;
+              });
             },
           ),
         ],
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Container(
-            padding: EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                _image != null? Container(
-                  height: 300.0,
-                  child: Image.file(_image),
-                ) :_imageFood(),
-                _categoryDropdown(),
-                _textFieldName(),
-                _textFieldPice(),
-                _textFieldOldPice(),
-              ],
+        child: ModalProgressHUD(
+          inAsyncCall: _isLoading,
+          child: SingleChildScrollView(
+            child: Container(
+              padding: EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  _image != null? Container(
+                    height: 300.0,
+                    child: Image.file(_image),
+                  ) :_imageFood(),
+                  _categoryDropdown(),
+                  _textFieldName(),
+                  _textFieldPice(),
+                  _textFieldOldPice(),
+                ],
+              ),
             ),
           ),
         ),
