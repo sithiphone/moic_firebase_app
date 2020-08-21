@@ -41,6 +41,8 @@ class _FoodHomeState extends State<FoodHome> {
               ),
               itemCount: foods.length,
               itemBuilder: (context, int index){
+                String price = foods[index]['price'];
+                String name = foods[index]['name'];
                 return Card(
                   child: Hero(
                     tag: foods[index]['docid'],
@@ -48,6 +50,19 @@ class _FoodHomeState extends State<FoodHome> {
                       child: InkWell(
                         onTap: (){},
                         child: GridTile(
+                          footer: Container(
+                            color: Colors.black38,
+                            child: ListTile(
+                              trailing: InkWell(
+                                child: Icon(Icons.delete_forever, color: Colors.red,),
+                                onTap: (){
+
+                                },
+                              ),
+                              title: price != null?Text(price + " LAK", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red),):null,
+                              subtitle: name != null? Text(name, style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.green),): null,
+                            ),
+                          ),
                           child: Image.network(foods[index]['photo'], fit: BoxFit.cover,),
                         ),
                       ),
