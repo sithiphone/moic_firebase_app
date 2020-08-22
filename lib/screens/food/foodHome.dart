@@ -5,6 +5,7 @@ import 'package:moic_firebase_app/models/food.dart';
 import 'package:moic_firebase_app/screens/AppDrawer.dart';
 import 'package:moic_firebase_app/screens/food/addFood.dart';
 import 'package:moic_firebase_app/screens/food/editFood.dart';
+import 'package:moic_firebase_app/screens/food/foodDetail.dart';
 
 class FoodHome extends StatefulWidget {
   static String id = "food_home_screen";
@@ -22,10 +23,7 @@ class _FoodHomeState extends State<FoodHome> {
   @override
   void initState() {
     // TODO: implement initState
-//    getFoods();
-    Future.delayed(Duration(milliseconds: 500), (){
-      getFoods();
-    });
+    getFoods();
   }
 
   @override
@@ -48,7 +46,7 @@ class _FoodHomeState extends State<FoodHome> {
                 String price = foods[index]['price'];
                 String name = foods[index]['name'];
                 String foodid = foods[index]['docid'];
-                String file_name = foods[index]['file_name'];
+                String file_name = foods[index]['filename'];
                 String photo = foods[index]['photo'];
                 String category = foods[index]['category'];
                 String old_price = foods[index]['old_price'];
@@ -57,7 +55,11 @@ class _FoodHomeState extends State<FoodHome> {
                     tag: foods[index]['docid'],
                     child: Material(
                       child: InkWell(
-                        onTap: (){},
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context) {
+                            return FoodDetial(docid: foodid, category: category, name: name, price: price, old_price: old_price, photo: photo, filename: file_name);
+                          }));
+                        },
                         child: GridTile(
                           header: Container(
                             alignment: Alignment.centerRight,
@@ -110,10 +112,10 @@ class _FoodHomeState extends State<FoodHome> {
               'docid' : doc.documentID,
               'name' : doc['name'],
               'photo' : doc['photo'],
-              'file_name' : doc['file_name'],
+              'filename' : doc['filename'],
               'price' : doc['price'],
               'old_price' : doc['oldprice'],
-              'category' : doc['category'],
+              'category' : doc['category'].toString(),
               'created_at' : doc['crated_at'].toString(),
             };
 

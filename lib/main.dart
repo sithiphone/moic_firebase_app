@@ -4,6 +4,7 @@ import 'package:moic_firebase_app/screens/category/categoryHome.dart';
 import 'package:moic_firebase_app/screens/dashboard.dart';
 import 'package:moic_firebase_app/screens/food/addFood.dart';
 import 'package:moic_firebase_app/screens/food/editFood.dart';
+import 'package:moic_firebase_app/screens/food/foodDetail.dart';
 import 'package:moic_firebase_app/screens/food/foodHome.dart';
 import 'package:moic_firebase_app/screens/home.dart';
 import 'package:moic_firebase_app/screens/login.dart';
@@ -29,5 +30,6 @@ void main() => runApp(MaterialApp(
     FoodHome.id : (contex) => FoodHome(),
     AddFood.id : (context) => AddFood(),
     EditFood.id : (context) => EditFood(),
+    FoodDetial.id : (context) => FoodDetial(),
   },
 ));
